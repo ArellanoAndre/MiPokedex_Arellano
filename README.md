@@ -1,1 +1,0 @@
-# MiPokedex_Arellano
