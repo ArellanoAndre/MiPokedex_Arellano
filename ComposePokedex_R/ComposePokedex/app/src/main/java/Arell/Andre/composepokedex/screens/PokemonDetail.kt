@@ -2,18 +2,7 @@ package Arell.Andre.composepokedex.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -22,21 +11,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import Arell.Andre.composepokedex.components.Ability
+import Arell.Andre.composepokedex.R
 import Arell.Andre.composepokedex.components.Chip
+import Arell.Andre.composepokedex.components.PokemonDescription
 import Arell.Andre.composepokedex.components.PokemonFooter
 import Arell.Andre.composepokedex.components.PokemonHeader
-import Arell.Andre.composepokedex.R
+import Arell.Andre.composepokedex.components.PokemonStats
 import Arell.Andre.composepokedex.domain.Pokemon
 import Arell.Andre.composepokedex.ui.theme.ComposePokedexTheme
 import Arell.Andre.composepokedex.ui.theme.ElectricYellow
 import Arell.Andre.composepokedex.ui.theme.OffWhite
-
 
 @Composable
 fun PokemonCard(
@@ -46,100 +38,130 @@ fun PokemonCard(
     onNavigate: (Pokemon) -> Unit
 ) {
 
-    Box(contentAlignment = Alignment.TopCenter) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.TopCenter
+    ) {
 
+        // Imagen principal del Pokémon
         Image(
-            painter = painterResource(pokemon.image),
+            painter = painterResource(id = pokemon.image),
             contentDescription = pokemon.name,
             modifier = Modifier
-                .offset(0.dp, -80.dp)
+                .offset(y = (-75).dp)
                 .zIndex(2f)
-                .size(130.dp),
+                .size(150.dp),
             contentScale = ContentScale.Fit
         )
 
         Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-            elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-            colors = CardDefaults.cardColors(containerColor = OffWhite)
+            modifier = Modifier.fillMaxSize(),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 10.dp
+            ),
+            colors = CardDefaults.cardColors(
+                containerColor = OffWhite
+            )
         ) {
 
-            Column(Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
 
+                // Tipo del Pokémon
                 Chip(
-                    pokemon.type,
-                    ElectricYellow,
-                    Modifier
-                        .padding(top = 70.dp)
+                    text = pokemon.type,
+                    color = ElectricYellow,
+                    modifier = Modifier
+                        .padding(top = 85.dp)
                         .align(Alignment.CenterHorizontally)
                 )
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(.8f)
-                        .align(Alignment.CenterHorizontally)
-                        .padding(top = 5.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
+                Spacer(modifier = Modifier.height(15.dp))
 
-                    Column {
-                        Ability("row", label = "Altura", "${pokemon.height}m")
-                        Ability("row", "Peso", "${pokemon.weight}kg")
-                    }
+                // Nuevo Composable de estadísticas
+                PokemonStats(
+                    height = pokemon.height,
+                    weight = pokemon.weight,
+                    ability = pokemon.ability
+                )
 
-                    Ability("column", label = "Habilidad", value = pokemon.ability)
-                }
+                // Nuevo Composable de descripción
+                PokemonDescription(
+                    description = pokemon.description
+                )
 
-                Row(
-                    Modifier
-                        .fillMaxWidth(.8f)
-                        .align(Alignment.CenterHorizontally)
-                        .padding(25.dp)
-                ) {
-                    Text(pokemon.description)
-                }
-
+                // Evoluciones
                 if (pokemon.evolutions.isNotEmpty()) {
 
                     Text(
-                        text = "Evolutions",
-                        modifier = Modifier.padding(start = 20.dp, top = 10.dp)
+                        text = "EVOLUCIONES",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF1F1F1F),
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            top = 5.dp,
+                            bottom = 5.dp
+                        )
                     )
 
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(120.dp)
+                            .height(90.dp)
                     ) {
 
                         items(pokemon.evolutions) { evolution ->
 
                             Row(
-                                verticalAlignment = Alignment.CenterVertically,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(8.dp)
+                                    .padding(horizontal = 20.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
 
                                 Image(
-                                    painter = painterResource(evolution.image),
+                                    painter = painterResource(
+                                        id = evolution.image
+                                    ),
                                     contentDescription = evolution.name,
-                                    modifier = Modifier.size(50.dp)
+                                    modifier = Modifier.size(55.dp),
+                                    contentScale = ContentScale.Fit
                                 )
 
-                                Text(
-                                    text = evolution.name,
-                                    modifier = Modifier.padding(start = 10.dp)
+                                Spacer(
+                                    modifier = Modifier.width(12.dp)
                                 )
+
+                                Column {
+
+                                    Text(
+                                        text = evolution.name,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 14.sp
+                                    )
+
+                                    Text(
+                                        text = "#${
+                                            evolution.number
+                                                .toString()
+                                                .padStart(4, '0')
+                                        }",
+                                        fontSize = 11.sp,
+                                        color = Color.Gray
+                                    )
+                                }
                             }
                         }
                     }
                 }
 
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(
+                    modifier = Modifier.weight(1f)
+                )
 
+                // Navegación entre Pokémon
                 PokemonFooter(
                     previous = previous,
                     next = next,
@@ -168,13 +190,17 @@ fun PokemonDetailScreen(
             .background(ElectricYellow)
     ) {
 
-        PokemonHeader(pokemon.name, pokemon.number, pokemon.fav)
+        PokemonHeader(
+            name = pokemon.name,
+            number = pokemon.number,
+            fav = pokemon.fav
+        )
 
         PokemonCard(
-            pokemon,
-            previous,
-            next,
-            onNavigate
+            pokemon = pokemon,
+            previous = previous,
+            next = next,
+            onNavigate = onNavigate
         )
     }
 }
@@ -182,21 +208,21 @@ fun PokemonDetailScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun PokemonDetailPreview() {
 
     ComposePokedexTheme {
 
         PokemonDetailScreen(
             pokemon = Pokemon(
-                "Pikachu",
-                25,
-                "Electric",
-                "Pokemon amarillo",
-                0.4f,
-                6f,
-                true,
-                "Estática",
-                R.drawable.pikachu
+                name = "Pikachu",
+                number = 25,
+                type = "Electric",
+                description = "Pikachu, el Pokémon Ratón. Almacena electricidad en sus mejillas.",
+                height = 0.4f,
+                weight = 6f,
+                fav = true,
+                ability = "Electricidad Estática",
+                image = R.drawable.pikachu
             ),
             neighbors = Pair(null, null),
             onNavigate = {}
