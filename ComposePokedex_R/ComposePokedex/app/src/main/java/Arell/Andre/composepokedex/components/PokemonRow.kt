@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,165 +26,110 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun PokemonRow(
     pokemon: Pokemon,
-    onClick: (Pokemon) -> Unit = {}
+    onClick: (Pokemon) -> Unit = {},
+    modifier: Modifier = Modifier
 ) {
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = 16.dp,
-                vertical = 6.dp
-            )
+        modifier = modifier
+            .padding(4.dp)
             .clickable {
                 onClick(pokemon)
             },
-        shape = RoundedCornerShape(18.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 5.dp
-        ),
+        shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White
+            containerColor = Color.White.copy(alpha = 0.96f)
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 3.dp
         )
     ) {
 
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            // Imagen real del Pokémon
+            // Número
             Box(
-                modifier = Modifier
-                    .size(85.dp)
-                    .background(
-                        color = Color(0xFFF5F5F5),
-                        shape = RoundedCornerShape(15.dp)
-                    ),
-                contentAlignment = Alignment.Center
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterEnd
             ) {
 
-                Image(
-                    painter = painterResource(
-                        id = pokemon.image
-                    ),
-                    contentDescription = "${pokemon.name} image",
-                    modifier = Modifier
-                        .size(75.dp)
-                        .padding(5.dp),
-                    contentScale = ContentScale.Fit
+                Text(
+                    text = "#${
+                        pokemon.number
+                            .toString()
+                            .padStart(3, '0')
+                    }",
+                    color = getTypeColor(pokemon.type),
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
 
-            Spacer(
-                modifier = Modifier.width(12.dp)
+            // Imagen
+            Image(
+                painter = painterResource(
+                    id = pokemon.image
+                ),
+                contentDescription = "${pokemon.name} image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(90.dp)
+                    .padding(3.dp),
+                contentScale = ContentScale.Fit
             )
 
-            // Información
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
+            Spacer(
+                modifier = Modifier.height(5.dp)
+            )
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+            // Nombre
+            Text(
+                text = pokemon.name,
+                modifier = Modifier.fillMaxWidth(),
+                color = Color(0xFF252525),
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                maxLines = 1
+            )
 
-                    Text(
-                        text = pokemon.name,
-                        fontSize = 17.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = DarkGray
+            Spacer(
+                modifier = Modifier.height(4.dp)
+            )
+
+            // Tipo
+            Text(
+                text = pokemon.type.replace("/", " / "),
+                color = Color.White,
+                fontSize = 8.sp,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                modifier = Modifier
+                    .background(
+                        color = getTypeColor(pokemon.type),
+                        shape = RoundedCornerShape(10.dp)
                     )
-
-                    Text(
-                        text = "#${
-                            pokemon.number
-                                .toString()
-                                .padStart(3, '0')
-                        }",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White,
-                        modifier = Modifier
-                            .background(
-                                color = getTypeColor(pokemon.type),
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .padding(
-                                horizontal = 7.dp,
-                                vertical = 3.dp
-                            )
+                    .padding(
+                        horizontal = 8.dp,
+                        vertical = 3.dp
                     )
-                }
-
-                // Tipo
-                Text(
-                    text = pokemon.type.replace("/", " / "),
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = getTypeColor(pokemon.type)
-                )
-
-                // Descripción
-                Text(
-                    text = pokemon.description,
-                    fontSize = 10.sp,
-                    lineHeight = 14.sp,
-                    color = Color(0xFF666666),
-                    maxLines = 2
-                )
-
-                Spacer(
-                    modifier = Modifier.height(2.dp)
-                )
-
-                // Altura y peso
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Text(
-                        text = "Altura  ${pokemon.height} m",
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(0xFF444444)
-                    )
-
-                    Text(
-                        text = "Peso  ${pokemon.weight} kg",
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(0xFF444444)
-                    )
-                }
-
-                Text(
-                    text = "Ver detalle  ›",
-                    modifier = Modifier.align(
-                        Alignment.End
-                    ),
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = getTypeColor(pokemon.type)
-                )
-            }
+            )
         }
     }
 }
-
 
 fun getTypeColor(type: String): Color {
 
     return when {
 
         type.contains("Electric", true) ->
-            Color(0xFFE0B900)
+            Color(0xFFE5B900)
 
         type.contains("Fire", true) ->
             Fire
@@ -219,7 +165,6 @@ fun getTypeColor(type: String): Color {
             Color(0xFF607D8B)
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
