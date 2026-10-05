@@ -55,3 +55,5 @@ val Ghost = Color(0xFF5E3581)
 val Dragon = Color(0xFF3969AB)
 
 val Fairy = Color(0xFFEE99AC)
+
+val Green = Color(0xFF81CA85)
