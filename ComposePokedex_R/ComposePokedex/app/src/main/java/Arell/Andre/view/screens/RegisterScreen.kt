@@ -1,4 +1,4 @@
-package Arell.Andre.composepokedex.screens
+package Arell.Andre.view.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

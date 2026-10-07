@@ -1,11 +1,11 @@
 package Arell.Andre.composepokedex.navigation
 
-import Arell.Andre.composepokedex.components.MenuPokedex
+import Arell.Andre.view.components.MenuPokedex
 import Arell.Andre.composepokedex.dummies.getPokemon
 import Arell.Andre.composepokedex.dummies.showAllPokemons
-import Arell.Andre.composepokedex.screens.LoginScreen
-import Arell.Andre.composepokedex.screens.PokemonDetailScreen
-import Arell.Andre.composepokedex.screens.RegisterScreen
+import Arell.Andre.view.screens.LoginScreen
+import Arell.Andre.view.screens.PokemonDetailScreen
+import Arell.Andre.view.screens.RegisterScreen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost

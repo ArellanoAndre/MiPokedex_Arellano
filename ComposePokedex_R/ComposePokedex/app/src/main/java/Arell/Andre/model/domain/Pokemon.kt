@@ -1,4 +1,4 @@
-package Arell.Andre.composepokedex.domain
+package Arell.Andre.model.domain
 
 data class Pokemon(
     val name: String,

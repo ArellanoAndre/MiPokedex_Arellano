@@ -1,7 +1,7 @@
-package Arell.Andre.data
+package Arell.Andre.model.data
 
 import Arell.Andre.composepokedex.R
-import Arell.Andre.composepokedex.domain.Pokemon
+import Arell.Andre.model.domain.Pokemon
 
 val pokemonList = listOf(
 

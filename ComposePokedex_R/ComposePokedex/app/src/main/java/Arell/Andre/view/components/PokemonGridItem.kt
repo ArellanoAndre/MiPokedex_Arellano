@@ -1,4 +1,4 @@
-package Arell.Andre.composepokedex.components
+package Arell.Andre.view.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,7 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import Arell.Andre.composepokedex.domain.Pokemon
+import Arell.Andre.model.domain.Pokemon
 import Arell.Andre.composepokedex.dummies.getOnePokemon
 import Arell.Andre.composepokedex.ui.theme.*
 

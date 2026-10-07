@@ -1,7 +1,7 @@
 package Arell.Andre.composepokedex.utilities
 
 import androidx.compose.ui.graphics.Color
-import Arell.Andre.composepokedex.domain.Pokemon
+import Arell.Andre.model.domain.Pokemon
 import Arell.Andre.composepokedex.ui.theme.Bug
 import Arell.Andre.composepokedex.ui.theme.DarkGray
 import Arell.Andre.composepokedex.ui.theme.Electric

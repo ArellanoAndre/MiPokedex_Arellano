@@ -1,6 +1,6 @@
-package Arell.Andre.composepokedex.components
+package Arell.Andre.view.components
 
-import Arell.Andre.composepokedex.domain.Pokemon
+import Arell.Andre.model.domain.Pokemon
 import Arell.Andre.composepokedex.dummies.showAllPokemons
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

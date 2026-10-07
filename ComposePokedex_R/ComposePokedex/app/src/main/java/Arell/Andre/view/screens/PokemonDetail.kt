@@ -1,4 +1,4 @@
-package Arell.Andre.composepokedex.screens
+package Arell.Andre.view.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,12 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import Arell.Andre.composepokedex.R
-import Arell.Andre.composepokedex.components.Chip
-import Arell.Andre.composepokedex.components.PokemonDescription
-import Arell.Andre.composepokedex.components.PokemonFooter
-import Arell.Andre.composepokedex.components.PokemonHeader
-import Arell.Andre.composepokedex.components.PokemonStats
-import Arell.Andre.composepokedex.domain.Pokemon
+import Arell.Andre.view.components.Chip
+import Arell.Andre.view.components.PokemonDescription
+import Arell.Andre.view.components.PokemonFooter
+import Arell.Andre.view.components.PokemonHeader
+import Arell.Andre.view.components.PokemonStats
+import Arell.Andre.model.domain.Pokemon
 import Arell.Andre.composepokedex.ui.theme.ComposePokedexTheme
 import Arell.Andre.composepokedex.ui.theme.ElectricYellow
 import Arell.Andre.composepokedex.ui.theme.OffWhite
