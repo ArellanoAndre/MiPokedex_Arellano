@@ -1,0 +1,38 @@
+﻿package Arell.Andre.view.viewmodel
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import Arell.Andre.model.data.Users
+
+class UserViewModel(private val users: Users) : ViewModel() {
+    var loginError by mutableStateOf(false)
+        private set
+    var errorDescription by mutableStateOf("")
+        private set
+
+    var gridDisplay by mutableStateOf(users.isGridDisplay())
+        private set
+
+    fun login(mail: String, password: String): Boolean {
+        val user = users.loginService(mail, password)
+        loginError = user == null
+        errorDescription = if (loginError) "Usuario o contraseÃ±a incorrectos" else ""
+        return user != null
+    }
+
+    fun isLoggedIn(): Boolean = users.isLoggedIn()
+
+    fun logout() {
+        users.logout()
+        loginError = false
+        errorDescription = ""
+    }
+
+    fun updateGridDisplay(grid: Boolean) {
+        gridDisplay = grid
+        users.savePokemonDisplay(grid)
+    }
+}
+
